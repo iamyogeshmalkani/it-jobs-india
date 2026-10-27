@@ -1,0 +1,46 @@
+name: jobbot
+
+on:
+  schedule:
+    - cron: "7 * * * *" # hourly at :07 (GitHub delays runs at the top of the hour); runs can still start late
+  workflow_dispatch:
+
+# Only one run at a time: two overlapping runs could post the same job twice.
+concurrency:
+  group: jobbot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Steps are skipped (not failed) until the bot token secret exists.
+      CONFIGURED: ${{ secrets.TELEGRAM_BOT_TOKEN != '' }}
+    steps:
+      - name: Not configured yet
+        if: env.CONFIGURED != 'true'
+        run: echo "Add the TELEGRAM_BOT_TOKEN, TELEGRAM_CHANNEL_ID and DATABASE_URL secrets to start the bot."
+      - uses: actions/checkout@v4
+        if: env.CONFIGURED == 'true'
+      - uses: actions/setup-python@v5
+        if: env.CONFIGURED == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+        if: env.CONFIGURED == 'true'
+      - run: python -m jobbot run
+        if: env.CONFIGURED == 'true'
+        env:
+          PYTHONPATH: src
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+          DRY_RUN: ${{ vars.DRY_RUN || '0' }}
+          SKIP_UNPAID: ${{ vars.SKIP_UNPAID }}
+          MAX_POSTS_PER_DAY: ${{ vars.MAX_POSTS_PER_DAY }}
+          POST_INTERVAL_MINUTES: ${{ vars.POST_INTERVAL_MINUTES }}
+          QUIET_START_HOUR: ${{ vars.QUIET_START_HOUR }}
+          QUIET_END_HOUR: ${{ vars.QUIET_END_HOUR }}
+          MAX_JOB_AGE_DAYS: ${{ vars.MAX_JOB_AGE_DAYS }}

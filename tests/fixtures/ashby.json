@@ -1,0 +1,74 @@
+{
+ "jobs": [
+  {
+   "id": "1eb3008a-2014-4a6c-8a35-cfa7caf8a60f",
+   "title": "Growth Marketing Intern",
+   "department": "Marketing",
+   "team": "Marketing",
+   "employmentType": "FullTime",
+   "location": "Bengaluru",
+   "secondaryLocations": [],
+   "publishedAt": "2026-09-23T14:58:46.637+00:00",
+   "isListed": true,
+   "isRemote": false,
+   "workplaceType": "OnSite",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "Karnataka",
+     "addressCountry": "India",
+     "addressLocality": "Bengaluru"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/sarvam/1eb3008a-2014-4a6c-8a35-cfa7caf8a60f",
+   "applyUrl": "https://jobs.ashbyhq.com/sarvam/1eb3008a-2014-4a6c-8a35-cfa7caf8a60f/application",
+   "descriptionPlain": "About Sarvam\n\nSarvam is building the bedrock of Sovereign AI for India. The company is developing India's full-stack sovereign AI platform, building across research, models, infrastructure and applications with a singular focus on making AI genuinely work for India. Sarvam works with leading enterpr"
+  },
+  {
+   "id": "bba82f34-1544-421e-a393-3edd8a5f4cb2",
+   "title": "Marketing internship (brand & communication)",
+   "department": "Marketing",
+   "team": "Marketing",
+   "employmentType": "FullTime",
+   "location": "Bengaluru",
+   "secondaryLocations": [],
+   "publishedAt": "2026-10-23T10:47:51.171+00:00",
+   "isListed": true,
+   "isRemote": false,
+   "workplaceType": "OnSite",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "Karnataka",
+     "addressCountry": "India",
+     "addressLocality": "Bengaluru"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/sarvam/bba82f34-1544-421e-a393-3edd8a5f4cb2",
+   "applyUrl": "https://jobs.ashbyhq.com/sarvam/bba82f34-1544-421e-a393-3edd8a5f4cb2/application",
+   "descriptionPlain": "About Sarvam\n\nSarvam is building the bedrock of Sovereign AI for India, a full-stack sovereign AI platform spanning research, models, infrastructure, and applications, with a singular focus on making AI genuinely work for India. Sarvam works with leading enterprises and public institutions and is ba"
+  },
+  {
+   "id": "c0406fe0-c8c0-44aa-aa3e-b879f2bf1049",
+   "title": "Engagement Manager, Chanakya",
+   "department": "Business Development",
+   "team": "Business Development",
+   "employmentType": "FullTime",
+   "location": "Delhi",
+   "secondaryLocations": [],
+   "publishedAt": "2026-04-17T11:46:39.214+00:00",
+   "isListed": true,
+   "isRemote": false,
+   "workplaceType": "OnSite",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "Delhi",
+     "addressCountry": "India",
+     "addressLocality": "Delhi"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/sarvam/c0406fe0-c8c0-44aa-aa3e-b879f2bf1049",
+   "applyUrl": "https://jobs.ashbyhq.com/sarvam/c0406fe0-c8c0-44aa-aa3e-b879f2bf1049/application",
+   "descriptionPlain": "About Sarvam\n\nSarvam is building the bedrock of Sovereign AI for India. The company is developing India's full-stack sovereign AI platform, building across research, models, infrastructure and applications with a singular focus on making AI genuinely work for India. Sarvam works with leading enterpr"
+  }
+ ],
+ "apiVersion": "1"
+}

@@ -1,0 +1,436 @@
+{
+ "data": {
+  "total": 587,
+  "data": [
+   {
+    "id": 1780498,
+    "title": "Software Development Internship",
+    "type": "jobs",
+    "subtype": "internships",
+    "seo_url": "https://unstop.com/internships/software-development-internship-itransition-1780498",
+    "public_url": "internships/software-development-internship-itransition-1780498",
+    "organisation": {
+     "name": "Itransition",
+     "id": 1270947
+    },
+    "locations": [
+     {
+      "id": 1878641,
+      "city": "Baldev",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "addressable_id": 1780498,
+      "addressable_type": "App\\Model\\Opportunity"
+     }
+    ],
+    "jobDetail": {
+     "entity_id": 1780498,
+     "max_salary": null,
+     "currency": "fa-rupee",
+     "locations": [
+      "Baldev"
+     ],
+     "type": "wfh",
+     "min_salary": null,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "unpaid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Software Development"
+     },
+     {
+      "name": "Web Development"
+     },
+     {
+      "name": "Full Stack Development"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": ".NET Framework"
+     },
+     {
+      "skill_name": "JavaScript"
+     },
+     {
+      "skill_name": "Version Control Systems (Git, SVN)"
+     },
+     {
+      "skill_name": "HTML"
+     },
+     {
+      "skill_name": "English Language Proficiency"
+     },
+     {
+      "skill_name": ".NET Framework"
+     },
+     {
+      "skill_name": "JavaScript"
+     },
+     {
+      "skill_name": "GitHub"
+     }
+    ],
+    "approved_date": "2026-10-27 13:40:16 GMT+0530",
+    "updated_at": "2026-10-27T21:58:09+05:30",
+    "end_date": "2026-11-10T19:40:45+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>Responsibilities of the Intern:</strong></p>\n<ul>\n<li>Perform software development tasks</li>\n<li>Study training materials independently</li>\n<li>Collaborate with team members on assigned tasks</li>\n<li>Attend lectures and seminars</li>\n<li>Develop a web application project</li>\n</ul>\n<p><strong>Requirements:</strong></p>\n<ul>\n<li>Basic knowledge of programming using .NET or JavaScript</li>\n<li>Understanding of web development principles</li>\n<li>Basic knowledge of version control systems such as Git or Subversion</li>\n<li>Conversational English proficiency at Upper Intermediate lev",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Postgraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Arts, Commerce, Sciences & Others",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1780518,
+    "title": "Data Analyst Internship",
+    "type": "jobs",
+    "subtype": "internships",
+    "seo_url": "https://unstop.com/internships/data-analyst-internship-sclaria-1780518",
+    "public_url": "internships/data-analyst-internship-sclaria-1780518",
+    "organisation": {
+     "name": "Sclaria",
+     "id": 2115682
+    },
+    "locations": [],
+    "jobDetail": {
+     "entity_id": 1780518,
+     "max_salary": 22000,
+     "currency": "fa-rupee",
+     "locations": [],
+     "type": "wfh",
+     "min_salary": 22000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Data Analysis"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Data Cleaning"
+     },
+     {
+      "skill_name": "Data Collection"
+     },
+     {
+      "skill_name": "Spreadsheet Software (Excel, Google Sheets)"
+     },
+     {
+      "skill_name": "Data Interpretation"
+     },
+     {
+      "skill_name": "Reporting and Analysis"
+     }
+    ],
+    "approved_date": "2026-10-27 14:08:53 GMT+0530",
+    "updated_at": "2026-10-27T15:47:59+05:30",
+    "end_date": "2026-11-10T23:59:59+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>About the Company</strong></p>\n<p>Sclaria is building a thoughtful, data-driven environment where emerging professionals can develop practical expertise and contribute to meaningful business outcomes. As a Data Analyst Intern, you will work with the team to turn structured and unstructured information into useful insights while gaining hands-on exposure to the analytical workflow.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Collect, clean, organize, and validate data from relevant business sources.</li>\n<li>Support the preparation of recurring reports, dashboards, and anal",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Postgraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Fresher",
+      "type": "eligible"
+     },
+     {
+      "name": "Arts, Commerce, Sciences & Others",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1779014,
+    "title": "Data Science Internship",
+    "type": "jobs",
+    "subtype": "internships",
+    "seo_url": "https://unstop.com/internships/data-science-internship-work-from-anywhere-yugensoft-innovations-1779014",
+    "public_url": "internships/data-science-internship-work-from-anywhere-yugensoft-innovations-1779014",
+    "organisation": {
+     "name": "Yugensoft Innovations",
+     "id": 1020869
+    },
+    "locations": [],
+    "jobDetail": {
+     "entity_id": 1779014,
+     "max_salary": 12000,
+     "currency": "fa-rupee",
+     "locations": [],
+     "type": "wfh",
+     "min_salary": 7000,
+     "show_salary": 1,
+     "min_experience": 0,
+     "max_experience": 0,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Data Science"
+     },
+     {
+      "name": "Machine Learning Engineering"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Python"
+     },
+     {
+      "skill_name": "SQL"
+     },
+     {
+      "skill_name": "Machine Learning Concepts"
+     },
+     {
+      "skill_name": "R (Programming Language)"
+     },
+     {
+      "skill_name": "Tableau"
+     }
+    ],
+    "approved_date": "2026-10-26 23:38:58 GMT+0530",
+    "updated_at": "2026-10-27T13:21:26+05:30",
+    "end_date": "2026-11-09T22:20:46+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>Responsibilities of the Intern:</strong></p>\n<ul>\n<li>Develop and implement data-driven solutions to business problems.</li>\n<li>Analyze large datasets to identify trends, patterns, and correlations.</li>\n<li>Create predictive models and algorithms to optimize business processes.</li>\n<li>Design and develop data visualizations to communicate insights.</li>\n<li>Collaborate with other teams to ensure data accuracy and integrity.</li>\n<li>Develop and maintain data pipelines and ETL processes.</li>\n<li>Monitor and analyze system performance, suggesting improvements.</li>\n<li>Stay update",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Postgraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Management",
+      "type": "eligible"
+     },
+     {
+      "name": "Arts, Commerce, Sciences & Others",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1775916,
+    "title": "Business Development Internship",
+    "type": "jobs",
+    "subtype": "internships",
+    "seo_url": "https://unstop.com/internships/business-development-internship-launch-your-own-d2c-brand-october-2026-gogo-pogo-1775916",
+    "public_url": "internships/business-development-internship-launch-your-own-d2c-brand-october-2026-gogo-pogo-1775916",
+    "organisation": {
+     "name": "Gogo Pogo",
+     "id": 162757
+    },
+    "locations": [],
+    "jobDetail": {
+     "entity_id": 1775916,
+     "max_salary": 25000,
+     "currency": "fa-rupee",
+     "locations": [],
+     "type": "wfh",
+     "min_salary": 1000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "part_time",
+     "paid_unpaid": "paid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Marketing & Branding"
+     },
+     {
+      "name": "Campus Ambassador"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Entrepreneurship"
+     },
+     {
+      "skill_name": "Marketing Principles"
+     },
+     {
+      "skill_name": "Social Media Marketing (SMM)"
+     },
+     {
+      "skill_name": "Customer Acquisition"
+     },
+     {
+      "skill_name": "Business development"
+     }
+    ],
+    "approved_date": "2026-10-25 12:56:12 GMT+0530",
+    "updated_at": "2026-10-27T16:37:55+05:30",
+    "end_date": "2026-11-09T14:31:00+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p>GogoPogo is a DPIIT-recognised startup from Guwahati, incubated at IIMSFIE (IIM Shillong) and Assam Startup. Our engine lets anyone launch an online merchandise brand with no stock and no capital. We make each item only after it's ordered, and we handle payments, shipping and customer support. Our engine has processed over 2,600 orders so far.</p>\n<p><strong>About the internship</strong></p>\n<ul>\n<li>launch a real D2C merchandise brand of your own;</li>\n<li>help 2 peers from your college launch theirs;</li>\n<li>tell us honestly what works and what doesn't.</li>\n</ul>\n<p>Your feedback will s",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Postgraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Management",
+      "type": "eligible"
+     },
+     {
+      "name": "Arts, Commerce, Sciences & Others",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1778719,
+    "title": "Head of Sales Internship",
+    "type": "jobs",
+    "subtype": "internships",
+    "seo_url": "https://unstop.com/internships/head-of-sales-internship-cyber-hx-1778719",
+    "public_url": "internships/head-of-sales-internship-cyber-hx-1778719",
+    "organisation": {
+     "name": "Cyber HX",
+     "id": 1940964
+    },
+    "locations": [],
+    "jobDetail": {
+     "entity_id": 1778719,
+     "max_salary": null,
+     "currency": "fa-rupee",
+     "locations": [],
+     "type": "wfh",
+     "min_salary": null,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "unpaid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Business Development"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Business development"
+     },
+     {
+      "skill_name": "Sales Pipeline Management"
+     },
+     {
+      "skill_name": "Strategic Planning"
+     },
+     {
+      "skill_name": "Negotiation"
+     },
+     {
+      "skill_name": "Market Research Methods"
+     }
+    ],
+    "approved_date": "2026-10-27 16:41:43 GMT+0530",
+    "updated_at": "2026-10-27T16:41:43+05:30",
+    "end_date": "2026-11-10T23:59:59+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>About the Company</strong></p>\n<p>Cyber HX is a cybersecurity-focused organization with a strong global presence and a community of more than 7,400 users. It has delivered four Capture the Flag competitions, including a national-level CTF for the National Forensic Sciences University and two international CTF initiatives. Cyber HX currently operates primarily through cybersecurity competitions and CTF-led initiatives and is looking to expand its commercial offerings and revenue channels.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Take ownership of the complete sales and b",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Postgraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     },
+     {
+      "name": "Fresher",
+      "type": "eligible"
+     },
+     {
+      "name": "Management",
+      "type": "eligible"
+     },
+     {
+      "name": "Arts, Commerce, Sciences & Others",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   }
+  ],
+  "last_page": 1,
+  "current_page": 1
+ }
+}

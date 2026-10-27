@@ -1,0 +1,32 @@
+{
+ "jobPostingInfo": {
+  "id": "a0f6d13ce56910011c72bf37e4040000",
+  "title": "IT Infrastructure Intern",
+  "jobDescription": "<h3>Job Title</h3>IT Infrastructure Intern<p style=\"text-align:inherit\"></p><h3>Job Description</h3><p><b>Job title:</b><br />IT Infrastructure Intern<br /><b>Your role:</b><br /></p><p>1. Network Management: Assist in configuring, monitoring, and maintaining network systems to ensure seamless operations.</p><p>2. System Administration:  Provide support in managing servers, databases, and storage ",
+  "location": "Ciudad de Panama",
+  "postedOn": "Posted 30+ Days Ago",
+  "startDate": "2026-09-22",
+  "timeType": "Part time",
+  "jobReqId": "586528",
+  "jobPostingId": "IT-Infrastructure-Intern_586528",
+  "jobPostingSiteId": "jobs-and-careers",
+  "country": {
+   "descriptor": "Panama",
+   "id": "a390372e575c41ecb7240c51ce9067bd"
+  },
+  "canApply": true,
+  "posted": true,
+  "includeResumeParsing": true,
+  "jobRequisitionLocation": {
+   "descriptor": "Panama City - Torre V",
+   "country": {
+    "descriptor": "Panama",
+    "id": "a390372e575c41ecb7240c51ce9067bd",
+    "alpha2Code": "PA"
+   }
+  },
+  "externalUrl": "https://philips.wd3.myworkdayjobs.com/jobs-and-careers/job/Ciudad-de-Panama/IT-Infrastructure-Intern_586528",
+  "questionnaireId": "ac2d298cf42810018a16309609670000",
+  "secondaryQuestionnaireId": "d6bcd28e5a5301c8b33f66c040223465"
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/hackerrank/jobs/8229735",
+   "internal_job_id": 3561347,
+   "location": {
+    "name": "Onsite in Bangalore"
+   },
+   "id": 8229735,
+   "updated_at": "2026-10-15T07:56:34-04:00",
+   "requisition_id": "26Q3-659",
+   "title": "Software Development Engineer Intern",
+   "company_name": "HackerRank Careers",
+   "first_published": "2026-10-01T05:54:08-04:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/hackerrank/jobs/7567121",
+   "internal_job_id": 3347012,
+   "location": {
+    "name": "Remote in San Francisco Bay Area, Los Angeles, Seattle"
+   },
+   "id": 7567121,
+   "updated_at": "2026-09-03T17:51:45-04:00",
+   "requisition_id": "26Q1-538",
+   "title": "Account Executive - Strategic",
+   "company_name": "HackerRank Careers",
+   "first_published": "2026-01-28T21:15:47-05:00",
+   "language": "en",
+   "application_deadline": null
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/hackerrank/jobs/7959598",
+   "internal_job_id": 3455948,
+   "location": {
+    "name": "Hybrid in Bangalore, India"
+   },
+   "id": 7959598,
+   "updated_at": "2026-09-17T05:30:53-04:00",
+   "requisition_id": "26Q2-606b",
+   "title": "Senior AI Data Operations Manager",
+   "company_name": "HackerRank Careers",
+   "first_published": "2026-06-03T04:33:53-04:00",
+   "language": "en",
+   "application_deadline": null
+  }
+ ],
+ "meta": {
+  "total": 3
+ }
+}

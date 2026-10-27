@@ -1,0 +1,313 @@
+{
+ "data": {
+  "total": 836,
+  "data": [
+   {
+    "id": 1778958,
+    "title": "Data Entry Operator",
+    "type": "jobs",
+    "subtype": "jobs",
+    "seo_url": "https://unstop.com/jobs/data-entry-operator-skillsdna-1778958",
+    "public_url": "jobs/data-entry-operator-skillsdna-1778958",
+    "organisation": {
+     "name": "SkillsDNA",
+     "id": 2079946
+    },
+    "locations": [
+     {
+      "id": 1877456,
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India",
+      "addressable_id": 1778958,
+      "addressable_type": "App\\Model\\Opportunity"
+     }
+    ],
+    "jobDetail": {
+     "entity_id": 1778958,
+     "max_salary": 400000,
+     "currency": "fa-rupee",
+     "locations": [
+      "Bangalore"
+     ],
+     "type": "in_office",
+     "min_salary": 300000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "annually",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Data Analysis"
+     },
+     {
+      "name": "Business Intelligence"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Data Validation"
+     },
+     {
+      "skill_name": "Advanced Excel"
+     },
+     {
+      "skill_name": "Data Entry"
+     },
+     {
+      "skill_name": "Excel Data Analysis"
+     },
+     {
+      "skill_name": "Attention to Detail"
+     },
+     {
+      "skill_name": "Data Interpretation"
+     }
+    ],
+    "approved_date": "2026-10-26 23:51:20 GMT+0530",
+    "updated_at": "2026-10-27T15:27:50+05:30",
+    "end_date": "2026-11-09T00:00:00+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>Role Overview:</strong></p>\n<p>We are looking for a detail-oriented Data Entry Operator with proficiency in Advanced Excel, analytical ability, and strong attention to detail to manage data, maintain accurate records, and support reporting activities.</p>\n<p><strong>Key Responsibilities:</strong></p>\n<ul>\n<li>Enter, update, verify, and maintain data accurately.</li>\n<li>Use Advanced Excel for data analysis, interpretation, and reporting.</li>\n<li>Prepare reports and maintain spreadsheets and dashboards.</li>\n<li>Identify discrepancies and ensure data accuracy and consistency.</li>\n<",
+    "filters": [
+     {
+      "name": "Experienced Professionals",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1775631,
+    "title": ".NET Developer",
+    "type": "jobs",
+    "subtype": "jobs",
+    "seo_url": "https://unstop.com/jobs/net-developer-aethercodetech-1775631",
+    "public_url": "jobs/net-developer-aethercodetech-1775631",
+    "organisation": {
+     "name": "aethercodetech",
+     "id": 1877686
+    },
+    "locations": [
+     {
+      "id": 1874453,
+      "city": "New Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "addressable_id": 1775631,
+      "addressable_type": "App\\Model\\Opportunity"
+     }
+    ],
+    "jobDetail": {
+     "entity_id": 1775631,
+     "max_salary": 20000,
+     "currency": "fa-rupee",
+     "locations": [
+      "New Delhi"
+     ],
+     "type": "in_office",
+     "min_salary": 20000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "monthly",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Software Development"
+     },
+     {
+      "name": "Backend Development"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": ".NET Framework"
+     },
+     {
+      "skill_name": "C# Programming Language"
+     },
+     {
+      "skill_name": "API Development (REST)"
+     },
+     {
+      "skill_name": "SQL"
+     },
+     {
+      "skill_name": "Angular"
+     }
+    ],
+    "approved_date": "2026-10-25 10:31:55 GMT+0530",
+    "updated_at": "2026-10-27T16:21:36+05:30",
+    "end_date": "2026-11-08T23:59:59+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>aethercodetech is hiring for .NET Developer</strong></p>\n<p><strong>About the Company</strong></p>\n<p>aethercodetech is seeking a skilled .NET Developer to join its technology team in New Delhi. The role offers an opportunity to contribute to reliable, scalable software solutions while working in a collaborative engineering environment.</p>\n<p><strong>Responsibilities</strong></p>\n<ul>\n<li>Design, develop, test, and maintain applications using ASP.NET Core, ASP.NET MVC, C#, and .NET.</li>\n<li>Build and integrate Web APIs and REST-based services for business applications.</li>\n<li>Wr",
+    "filters": [
+     {
+      "name": "Experienced Professionals",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1772624,
+    "title": "QA & Glific Developer ",
+    "type": "jobs",
+    "subtype": "jobs",
+    "seo_url": "https://unstop.com/jobs/qa-glific-developer-the-apprentice-project-1772624",
+    "public_url": "jobs/qa-glific-developer-the-apprentice-project-1772624",
+    "organisation": {
+     "name": "The Apprentice Project",
+     "id": 211285
+    },
+    "locations": [
+     {
+      "id": 1871140,
+      "city": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "addressable_id": 1772624,
+      "addressable_type": "App\\Model\\Opportunity"
+     }
+    ],
+    "jobDetail": {
+     "entity_id": 1772624,
+     "max_salary": 700000,
+     "currency": "fa-rupee",
+     "locations": [
+      "Pune"
+     ],
+     "type": "hybrid",
+     "min_salary": 400000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "annually",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Manual Testing"
+     },
+     {
+      "name": "QA Engineering"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Software Quality Assurance (QA)"
+     },
+     {
+      "skill_name": "Test Case Design"
+     },
+     {
+      "skill_name": "Requirements Analysis"
+     },
+     {
+      "skill_name": "API Integration"
+     },
+     {
+      "skill_name": "Debugging"
+     }
+    ],
+    "approved_date": "2026-10-21 20:13:39 GMT+0530",
+    "updated_at": "2026-10-27T04:28:08+05:30",
+    "end_date": "2026-11-03T00:00:00+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p class=\"p1\"><strong>Responsibilities</strong></p>\n<ul>\n<li><span data-original-color=\"rgb(0, 0, 0)\">Read Figma designs, annotations, and requirements to understand conversation paths, expected behaviour, and changes from the existing flow. Clarify gaps before testing.</span></li>\n<li><span data-original-color=\"rgb(0, 0, 0)\">Create test cases linked to requirements, with prerequisites, test data, steps, and expected outcomes. Cover each branch and completion path.</span></li>\n<li><span data-original-color=\"rgb(0, 0, 0)\">Execute functional, end-to-end, and regression tests on student and teach",
+    "filters": [
+     {
+      "name": "Experienced Professionals",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   },
+   {
+    "id": 1755405,
+    "title": "Campus Hiring - GT Sales | 2027",
+    "type": "jobs",
+    "subtype": "jobs",
+    "seo_url": "https://unstop.com/jobs/crp-campus-hiring-gt-sales-2027-aarambh-polycab-1755405",
+    "public_url": "jobs/crp-campus-hiring-gt-sales-2027-aarambh-polycab-1755405",
+    "organisation": {
+     "name": "Polycab",
+     "id": 136305
+    },
+    "locations": [],
+    "jobDetail": {
+     "entity_id": 1755405,
+     "max_salary": 600000,
+     "currency": "fa-rupee",
+     "locations": [],
+     "type": "on_field",
+     "min_salary": 600000,
+     "show_salary": 1,
+     "min_experience": null,
+     "max_experience": null,
+     "timing": "full_time",
+     "paid_unpaid": "paid",
+     "pay_in": "annually",
+     "not_disclosed": false
+    },
+    "workfunction": [
+     {
+      "name": "Field Sales"
+     },
+     {
+      "name": "Sales"
+     }
+    ],
+    "required_skills": [
+     {
+      "skill_name": "Technical Sales"
+     },
+     {
+      "skill_name": "Relationship Management"
+     },
+     {
+      "skill_name": "Sales Prospecting"
+     },
+     {
+      "skill_name": "Customer orientation"
+     },
+     {
+      "skill_name": "Communication Skills"
+     }
+    ],
+    "approved_date": "2026-09-30 14:36:12 GMT+0530",
+    "updated_at": "2026-10-22T12:20:16+05:30",
+    "end_date": "2027-05-13T16:00:37+05:30",
+    "regn_open": 1,
+    "status": "LIVE",
+    "details": "<p><strong>POLYCAB INDIA LIMITED</strong></p>\n<p><strong>Graduate Trainee &ndash; Sales&nbsp;</strong></p>\n<p><em><span style=\"font-weight: 400;\">Aarambh 2027&nbsp;</span></em></p>\n<p><span style=\"font-weight: 400;\">Polycab India Limited (PIL) is India&rsquo;s largest manufacturer of Wires and Cables and one of the fastest growing FMEG companies with a consolidated turnover of ₹285+ Bn in FY26. PIL is at the forefront of providing innovative, safe and energy-efficient products to a diverse set of customers via a strong distribution network of 3,900+ authorized dealers and 190,000+ retail outle",
+    "filters": [
+     {
+      "name": "Engineering Students",
+      "type": "eligible"
+     },
+     {
+      "name": "Undergraduate",
+      "type": "eligible"
+     }
+    ],
+    "region": "online"
+   }
+  ],
+  "last_page": 1,
+  "current_page": 1
+ }
+}
