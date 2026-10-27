@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import re
 import sys
 from typing import List
@@ -34,6 +35,8 @@ def _print_post(text: str) -> None:
 def cmd_run(cfg: Config, _: argparse.Namespace) -> int:
     missing = [name for name, val in (("TELEGRAM_BOT_TOKEN", cfg.bot_token),
                                       ("TELEGRAM_CHANNEL_ID", cfg.channel_id)) if not val]
+    if os.environ.get("GITHUB_ACTIONS") == "true" and not cfg.database_url:
+        missing.append("DATABASE_URL")  # the runner's disk is wiped after every run
     if missing and not cfg.dry_run:
         print(f"Missing required settings: {', '.join(missing)}", file=sys.stderr)
         return 2
