@@ -85,6 +85,12 @@ Measured live on 2026-10-27:
    ```
 5. **Deploy**: push to a **public** GitHub repo (free Actions minutes), add `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `DATABASE_URL` as repository **secrets**, and enable Actions. For a first trial, set the repository **variable** `DRY_RUN=1`. The run log shows the post without sending it. Then remove the variable.
 
+## Website
+
+`site/` holds a one-page website for the channel (same navy, gold and teal look as the posts). The **pages** workflow publishes it to GitHub Pages at `https://iamyogeshmalkani.github.io/it-jobs-india/` whenever `site/` changes on `main`.
+
+One-time setup: Settings → Pages → Build and deployment → Source: **GitHub Actions**, then run the **pages** workflow once (Actions → pages → Run workflow). The site is plain HTML and CSS, so to preview it, open `site/index.html` in a browser. If you change the channel handle, update it in `site/index.html` (the join links, the QR code in `site/assets/channel-qr.png`, and the social image `site/assets/og.png`).
+
 ## Changing the channel
 
 Message ids belong to one channel, so the bot remembers which channel it posts to. If `TELEGRAM_CHANNEL_ID` changes, scheduled runs **stop without posting or editing anything** until you move over on purpose:
