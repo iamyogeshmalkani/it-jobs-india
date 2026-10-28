@@ -1,0 +1,51 @@
+{
+  "offers": [
+    {
+      "id": 1001,
+      "guid": "aaaa-1",
+      "status": "published",
+      "title": "Frontend Developer Intern (React)",
+      "careers_url": "https://acme.recruitee.com/o/frontend-developer-intern-react",
+      "city": "Bengaluru",
+      "country": "India",
+      "country_code": "IN",
+      "location": "Bengaluru, India",
+      "remote": false,
+      "hybrid": true,
+      "on_site": false,
+      "employment_type_code": "internship",
+      "published_at": "2026-10-22 08:23:10 UTC",
+      "created_at": "2026-10-21 10:00:00 UTC"
+    },
+    {
+      "id": 1002,
+      "status": "published",
+      "title": "QA Engineer",
+      "careers_url": "https://acme.recruitee.com/o/qa-engineer",
+      "city": "Amsterdam",
+      "country_code": "NL",
+      "location": "Amsterdam, Netherlands",
+      "remote": false,
+      "hybrid": false,
+      "on_site": true,
+      "employment_type_code": "fulltime_permanent",
+      "published_at": "2026-10-10 09:00:00 UTC"
+    },
+    {
+      "id": 1003,
+      "status": "published",
+      "title": "Junior Python Developer",
+      "careers_url": "https://acme.recruitee.com/o/junior-python-developer",
+      "locations": [
+        {"city": "Hyderabad", "country_code": "IN", "country": "India"},
+        {"city": "Lisbon", "country_code": "PT", "country": "Portugal"}
+      ],
+      "remote": true,
+      "hybrid": false,
+      "on_site": false,
+      "employment_type_code": "parttime_permanent",
+      "published_at": "2026-10-26 07:00:00 UTC"
+    },
+    {"id": 1004, "status": "draft", "title": "Hidden Role", "careers_url": "https://acme.recruitee.com/o/hidden"}
+  ]
+}

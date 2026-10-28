@@ -1,0 +1,33 @@
+{
+  "offset": 0,
+  "limit": 100,
+  "totalFound": 3,
+  "content": [
+    {
+      "id": "744000100000001",
+      "name": "Software Engineer Intern",
+      "uuid": "u-1",
+      "releasedDate": "2026-10-23T10:15:30.000Z",
+      "location": {"city": "Bengaluru", "region": "KA", "country": "in", "remote": false},
+      "experienceLevel": {"id": "internship", "label": "Internship"},
+      "typeOfEmployment": {"id": "permanent", "label": "Full-time"},
+      "ref": "https://api.smartrecruiters.com/v1/companies/acmelabs/postings/744000100000001"
+    },
+    {
+      "id": "744000100000002",
+      "name": "Senior Data Scientist",
+      "releasedDate": "2026-10-01T10:15:30.000Z",
+      "location": {"city": "Austin", "region": "TX", "country": "us", "remote": false},
+      "experienceLevel": {"id": "mid_senior_level", "label": "Mid-Senior Level"},
+      "typeOfEmployment": {"id": "permanent", "label": "Full-time"}
+    },
+    {
+      "id": "744000100000003",
+      "name": "Associate Software Engineer",
+      "releasedDate": "2026-10-25T06:00:00.000Z",
+      "location": {"city": "Chennai", "country": "in", "remote": true},
+      "experienceLevel": {"id": "entry_level", "label": "Entry Level"},
+      "typeOfEmployment": {"id": "part_time", "label": "Part-time"}
+    }
+  ]
+}

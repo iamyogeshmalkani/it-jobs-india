@@ -6,14 +6,17 @@ from typing import List
 
 import httpx
 
-from jobbot.collectors.ats import BOARDS, AshbyCollector, GreenhouseCollector, LeverCollector
+from jobbot.collectors.ats import (BOARDS, AshbyCollector, GreenhouseCollector, LeverCollector,
+                                    RecruiteeCollector, SmartRecruitersCollector,
+                                    WorkableCollector)
 from jobbot.collectors.base import Collector
 from jobbot.collectors.unstop import UnstopCollector
 from jobbot.collectors.workday import WorkdayCollector
 from jobbot.config import Config
 
 __all__ = ["AshbyCollector", "Collector", "GreenhouseCollector", "LeverCollector",
-           "UnstopCollector", "WorkdayCollector", "build_collectors", "http_client"]
+           "RecruiteeCollector", "SmartRecruitersCollector", "UnstopCollector",
+           "WorkableCollector", "WorkdayCollector", "build_collectors", "http_client"]
 
 
 def http_client(cfg: Config) -> httpx.Client:

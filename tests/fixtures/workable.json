@@ -1,0 +1,35 @@
+{
+  "name": "Acme Labs",
+  "description": null,
+  "jobs": [
+    {
+      "title": "Software Development Intern",
+      "shortcode": "A1B2C3D4E5",
+      "url": "https://apply.workable.com/acme-labs/j/A1B2C3D4E5",
+      "shortlink": "https://apply.workable.com/j/A1B2C3D4E5",
+      "published_on": "2026-10-24",
+      "created_at": "2026-10-23",
+      "employment_type": "Internship",
+      "location": {"location_str": "Pune, Maharashtra, India", "telecommuting": false, "workplace_type": "hybrid"},
+      "locations": [{"city": "Pune", "region": "Maharashtra", "country_name": "India", "country": "IN", "telecommuting": false, "workplace_type": "hybrid"}]
+    },
+    {
+      "title": "Senior Backend Engineer",
+      "shortcode": "F6G7H8I9J0",
+      "url": "https://apply.workable.com/acme-labs/j/F6G7H8I9J0",
+      "published_on": "2026-10-20",
+      "location": {"location_str": "Berlin, Germany", "telecommuting": false, "workplace_type": "on_site"},
+      "locations": [{"city": "Berlin", "region": "Berlin", "country_name": "Germany", "country": "DE", "telecommuting": false, "workplace_type": "on_site"}]
+    },
+    {
+      "title": "Graduate Data Analyst",
+      "shortcode": "K1L2M3N4O5",
+      "url": "https://apply.workable.com/acme-labs/j/K1L2M3N4O5",
+      "published_on": "2026-10-25",
+      "employment_type": "Full-time",
+      "location": {"location_str": "Remote", "telecommuting": true},
+      "locations": [{"city": "Pune", "region": "Maharashtra", "country_name": "India", "country": "IN", "telecommuting": true}]
+    },
+    {"title": "", "shortcode": "EMPTY", "url": "https://apply.workable.com/acme-labs/j/EMPTY"}
+  ]
+}

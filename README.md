@@ -34,11 +34,16 @@ Lines only appear when the source gives the data. Pay, deadline and work mode ar
 |---|---|---|
 | **Unstop** | Most of the volume: student internships and fresher jobs with stipend/salary, work mode, deadline | The public listing endpoint unstop.com's own pages use (`/api/public/`, allowed by its robots.txt) |
 | **Company boards** (Greenhouse, Lever, Ashby) | Interns/new-grad roles at Razorpay, Groww, CRED, Meesho, Stripe, Databricks, MongoDB, … | Official public job-board APIs, no key |
+| **Small-company hiring tools** (Workable, Recruitee, SmartRecruiters) | Open roles at the many smaller companies that run their careers page on these tools | Their public careers feeds, no key. Add companies with `discover` or the **discover** workflow. Field names come from vendor docs and have not yet been checked against a live response |
 | **Workday career sites** | Interns/graduates at NVIDIA, Intel, Mastercard, Citi, Deutsche Bank, Micron, … | The JSON the public career site calls; every 3 h |
 
 The company list is `data/companies.json`, 75 boards that had India jobs when I tested them. Add more with `discover` (below).
 
 Not used, on purpose: LinkedIn, Naukri, Indeed and Internshala. Their terms or robots.txt forbid automated collection.
+
+Not built yet: Wellfound, Cutshort, Hirist and Instahyre (their terms and any public feed could not be checked, so they stay off until someone confirms access or a partner feed), and Freshteam, Zoho Recruit and Keka (no public per-company feed was confirmed; Keka's `/careers/api/jobs/{portal}/active` looks usable but its field names need a live sample).
+
+To add small companies: run the **discover** workflow from the Actions tab (or `python -m jobbot discover "Company"` locally) with their names, then paste the printed lines into `data/companies.json`. Run `preview` once to see what a new board returns.
 
 ## What gets posted
 

@@ -111,7 +111,8 @@ def cmd_preview(cfg: Config, args: argparse.Namespace) -> int:
 
 
 def cmd_discover(cfg: Config, args: argparse.Namespace) -> int:
-    """Find a company's Greenhouse/Lever/Ashby board and print a companies.json entry."""
+    """Find a company's Greenhouse/Lever/Ashby/Workable/Recruitee/SmartRecruiters board and
+    print a companies.json entry."""
     client = http_client(cfg)
     for name in args.names:
         base = re.sub(r"[^a-z0-9]", "", name.lower())
@@ -131,7 +132,7 @@ def cmd_discover(cfg: Config, args: argparse.Namespace) -> int:
                       f"   # {len(jobs)} jobs, {len(india)} in India")
                 found = True
         if not found:
-            print(f"# {name}: no Greenhouse/Lever/Ashby board found (try its careers page; "
+            print(f"# {name}: no Greenhouse/Lever/Ashby/Workable/Recruitee/SmartRecruiters board found (try its careers page; "
                   "Workday sites need host/tenant/site from the careers URL)")
     return 0
 

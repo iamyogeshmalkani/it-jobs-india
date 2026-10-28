@@ -4,7 +4,9 @@ import pytest
 
 from conftest import fixture
 from jobbot import classify
-from jobbot.collectors.ats import AshbyCollector, GreenhouseCollector, LeverCollector
+from jobbot.collectors.ats import (AshbyCollector, GreenhouseCollector, LeverCollector,
+                                    RecruiteeCollector, SmartRecruitersCollector,
+                                    WorkableCollector)
 from jobbot.collectors.base import parse_iso
 from jobbot.collectors.unstop import parse_listing, parse_unstop_date
 from jobbot.collectors.workday import WorkdayCollector, looks_relevant
@@ -50,6 +52,95 @@ def test_ashby():
     assert all(j.work_mode == MODE_ONSITE for j in jobs)
     assert jobs[0].posted_at is not None
     assert [classify.classify(j) for j in jobs] == ["not_it", "not_it", "not_it"]
+
+
+# The three fixtures below (workable, recruitee, smartrecruiters) are hand-written from the
+# vendors' documented response shapes, not captured live. Check them against a real response
+# (`python -m jobbot discover "Company"`) before relying on a field.
+
+def test_workable():
+    jobs = WorkableCollector("acme-labs", "Acme Labs", client=None).parse(fixture("workable.json"))
+    intern, senior, graduate = jobs  # the job with an empty title is dropped
+    assert intern.source == "workable:acme-labs" and intern.source_job_id == "A1B2C3D4E5"
+    assert intern.in_india is True and intern.locations == ["Pune, Maharashtra, India"]
+    assert intern.job_type == TYPE_INTERNSHIP and intern.work_mode == MODE_HYBRID
+    assert intern.posted_at == parse_iso("2026-10-24") and classify.classify(intern) == ""
+    assert senior.in_india is False and senior.work_mode == MODE_ONSITE
+    assert classify.classify(senior) == "not_india"
+    assert graduate.work_mode == MODE_REMOTE and classify.classify(graduate) == ""
+
+
+def test_recruitee():
+    jobs = RecruiteeCollector("acme", "Acme", client=None).parse(fixture("recruitee.json"))
+    intern, qa, junior = jobs  # the unpublished draft is dropped
+    assert intern.url == "https://acme.recruitee.com/o/frontend-developer-intern-react"
+    assert intern.in_india is True and intern.work_mode == MODE_HYBRID and intern.job_type == TYPE_INTERNSHIP
+    assert intern.posted_at == int(datetime(2026, 10, 22, 8, 23, 10, tzinfo=timezone.utc).timestamp())
+    assert classify.classify(intern) == ""
+    assert qa.in_india is False and classify.classify(qa) == "not_india"
+    assert junior.in_india is True and junior.part_time and junior.work_mode == MODE_REMOTE
+    assert junior.locations == ["Hyderabad, India", "Lisbon, Portugal"]
+    assert classify.classify(junior) == ""
+
+
+def test_smartrecruiters():
+    jobs = SmartRecruitersCollector("acmelabs", "Acme Labs", client=None).parse(
+        fixture("smartrecruiters.json"))
+    intern, senior, associate = jobs
+    assert intern.url == "https://jobs.smartrecruiters.com/acmelabs/744000100000001"
+    assert intern.in_india is True and intern.job_type == TYPE_INTERNSHIP
+    assert intern.posted_at == parse_iso("2026-10-23T10:15:30.000Z") and classify.classify(intern) == ""
+    assert senior.in_india is False and classify.classify(senior) == "not_india"
+    assert associate.entry_level and associate.part_time and associate.work_mode == MODE_REMOTE
+    assert classify.classify(associate) == ""
+
+
+class _Resp:
+    def __init__(self, payload):
+        self.payload = payload
+
+    def raise_for_status(self):
+        pass
+
+    def json(self):
+        return self.payload
+
+
+class _Pages:
+    """Fake HTTP client serving SmartRecruiters pages of one posting each."""
+
+    def __init__(self, total, served):
+        self.total, self.served = total, served
+
+    def get(self, url, params=None):
+        offset = params["offset"]
+        self.served.append(offset)
+        item = {"id": str(offset + 1), "name": "Software Intern",
+                "location": {"city": "Pune", "country": "in"}}
+        return _Resp({"totalFound": self.total, "content": [item] if offset < self.total else []})
+
+
+def test_smartrecruiters_paging_and_completeness():
+    served = []
+    sr = SmartRecruitersCollector("acmelabs", "Acme", client=_Pages(250, served))
+    sr.PAGE = 100  # three pages cover 250 postings (each fake page holds one)
+    assert len(sr.fetch()) == 3 and served == [0, 100, 200] and sr.complete is True
+    sr = SmartRecruitersCollector("acmelabs", "Acme", client=_Pages(10_000, []))
+    sr.MAX_PAGES = 2
+    sr.fetch()
+    assert sr.complete is False  # partly read: a missing job must not count as closed
+
+
+def test_build_collectors_knows_the_new_boards(tmp_path):
+    from jobbot.collectors import build_collectors
+    from jobbot.config import Config
+    path = tmp_path / "companies.json"
+    path.write_text('[{"name": "A", "ats": "workable", "slug": "a"},'
+                    ' {"name": "B", "ats": "recruitee", "slug": "b"},'
+                    ' {"name": "C", "ats": "smartrecruiters", "slug": "c"}]')
+    cfg = Config(companies_file=str(path), enable_unstop=False)
+    assert [c.name for c in build_collectors(cfg, client=None)] == [
+        "workable:a", "recruitee:b", "smartrecruiters:c"]
 
 
 def test_unstop_internships():
