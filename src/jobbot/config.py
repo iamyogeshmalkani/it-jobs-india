@@ -46,14 +46,15 @@ class Config:
 
     skip_unpaid: bool = True
     max_job_age_days: int = 10  # never post anything published longer ago than this
-    min_hours_before_deadline: int = 12  # don't post a job that closes sooner than this
-    company_cooldown_hours: int = 12  # at most one post per company in this window
+    # Jobs whose deadline is today (IST) or already passed are never posted; tomorrow or later is fine.
+    company_cooldown_hours: int = 0  # 0 = no limit; N = at most one post per company per N hours
     repost_cooldown_days: int = 30  # same company + title is not posted again within this
 
-    post_interval_minutes: int = 60
-    max_posts_per_day: int = 20
-    quiet_start_hour: int = 0  # IST, no posting from 00:00 ...
-    quiet_end_hour: int = 7  # ... until 07:00
+    # Every run posts all new jobs. The limits below are off by default (0 = off).
+    post_interval_minutes: int = 0  # minimum minutes between runs that post
+    max_posts_per_day: int = 0  # cap per IST day
+    quiet_start_hour: int = 0  # IST quiet window [start, end); equal values = no quiet hours
+    quiet_end_hour: int = 0
     dry_run: bool = False
 
     @property
@@ -73,12 +74,11 @@ class Config:
             unstop_pages=_int(env, "UNSTOP_PAGES", 20),
             skip_unpaid=_bool(env, "SKIP_UNPAID", True),
             max_job_age_days=_int(env, "MAX_JOB_AGE_DAYS", 10),
-            min_hours_before_deadline=_int(env, "MIN_HOURS_BEFORE_DEADLINE", 12),
-            company_cooldown_hours=_int(env, "COMPANY_COOLDOWN_HOURS", 12),
+            company_cooldown_hours=_int(env, "COMPANY_COOLDOWN_HOURS", 0),
             repost_cooldown_days=_int(env, "REPOST_COOLDOWN_DAYS", 30),
-            post_interval_minutes=_int(env, "POST_INTERVAL_MINUTES", 60),
-            max_posts_per_day=_int(env, "MAX_POSTS_PER_DAY", 20),
+            post_interval_minutes=_int(env, "POST_INTERVAL_MINUTES", 0),
+            max_posts_per_day=_int(env, "MAX_POSTS_PER_DAY", 0),
             quiet_start_hour=_int(env, "QUIET_START_HOUR", 0),
-            quiet_end_hour=_int(env, "QUIET_END_HOUR", 7),
+            quiet_end_hour=_int(env, "QUIET_END_HOUR", 0),
             dry_run=_bool(env, "DRY_RUN", False),
         )

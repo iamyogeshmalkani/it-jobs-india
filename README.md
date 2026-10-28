@@ -1,8 +1,8 @@
 # jobbot: IT internships & fresher jobs in India, on Telegram
 
 Every hour it collects internships and entry-level IT jobs in India (on-site, hybrid and
-remote), drops anything that isn't IT, entry level, paid, or safe, and posts **one job**
-to your channel in English. When a job closes, its post is edited to **❌ CLOSED**.
+remote), drops anything that isn't IT, entry level, paid, or safe, and posts **every new job**
+to your channel in English (nothing is saved for later). When a job closes, its post is edited to **❌ CLOSED**.
 Fully automatic, no review step, ₹0 to run (GitHub Actions + free Postgres).
 
 Built on the same architecture as [crazy-deals-india](https://github.com/iamyogeshmalkani/crazy-deals-india).
@@ -49,19 +49,19 @@ A job is posted only if **all** of these hold:
 3. **Entry level**: internship/trainee/apprentice, or a title such as graduate, fresher, junior, associate engineer, SDE-1, Engineer I. Unstop jobs count unless they ask for more than 2 years. Anything senior/lead/II+ is dropped. A plain "Software Engineer" with no level is dropped.
 4. **Paid**: unpaid internships are skipped (`SKIP_UNPAID=0` to allow them).
 5. **No scam signals**: fees, deposits, "WhatsApp only", "earn ₹X per day", "guaranteed placement".
-6. **Fresh**: published in the last 10 days, and at least 12 h before its deadline.
-7. **Not a repeat**: same company + title isn't posted twice within 30 days (across sources). At most one post per company every 12 h.
+6. **Fresh**: published in the last 10 days, and the deadline (if any) is **tomorrow or later** (IST). Jobs closing today or already closed are dropped; jobs with no deadline are fine.
+7. **Not a repeat**: same company + title isn't posted twice within 30 days (across sources).
 
-Order: newest first, company sites slightly ahead of aggregators, alternating internships and jobs.
+Every run posts all jobs that pass, so a delayed or skipped scheduled run never leaves jobs waiting. Within a run the order is newest first, company sites slightly ahead of aggregators, alternating internships and jobs.
+
+Optional limits, all **off** by default: `QUIET_START_HOUR`/`QUIET_END_HOUR` (IST), `POST_INTERVAL_MINUTES`, `MAX_POSTS_PER_DAY`, `COMPANY_COOLDOWN_HOURS` (see `.env.example`).
 
 ## Volume: what to expect
 
 Measured live on 2026-10-27:
 
-- **About 50 jobs pass every filter at launch.** That's about three days of hourly posts.
-- **About 6-8 new ones appear per day after that**, mostly from Unstop.
-
-So the channel posts every hour while it has jobs, then **skips hours rather than posting filler**. To post more often, add sources (see "Next steps").
+- **About 50 jobs pass every filter at launch.** The first run posts all of them, about 3 s apart (Telegram's channel rate limit), so roughly 3 minutes.
+- **About 6-8 new ones appear per day after that**, mostly from Unstop. Each run posts whatever is new and posts nothing when there is nothing new, rather than posting filler. To get more, add sources (see "Next steps").
 
 ## Setup
 
@@ -84,7 +84,7 @@ GitHub pauses scheduled workflows in repos with no activity for 60 days. If the 
 
 | Command | What it does |
 |---|---|
-| `python -m jobbot run` | One cycle: collect due sources, close ended jobs, post at most one job |
+| `python -m jobbot run` | One cycle: collect due sources, close ended jobs, post all new jobs |
 | `python -m jobbot check` | Tests the database, bot token, and the bot's admin rights in the channel |
 | `python -m jobbot preview [--limit N]` | Live fetch into a throwaway DB; prints counts, filter reasons, and the next N posts |
 | `python -m jobbot discover "Company" …` | Finds a company's Greenhouse/Lever/Ashby board and prints a line for `companies.json` |

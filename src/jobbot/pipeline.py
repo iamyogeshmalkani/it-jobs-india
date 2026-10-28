@@ -1,4 +1,4 @@
-"""One bot cycle: collect -> store new candidates -> close ended jobs -> post one job.
+"""One bot cycle: collect -> store new candidates -> close ended jobs -> post all new jobs.
 
 Stateless between runs (state lives in the database) so it can be driven by an hourly
 GitHub Actions cron. Fully automatic: there is no review step, so every filter that
@@ -28,6 +28,9 @@ from jobbot.telegram import Telegram, TelegramError
 log = logging.getLogger("jobbot")
 
 HOUR = 3600
+DAY = 24 * HOUR
+# Stop a run's posting loop after this many Telegram failures in a row (e.g. bad token or channel).
+MAX_CONSECUTIVE_SEND_ERRORS = 3
 # GitHub cron runs drift by minutes; allow this much early so a run that fires slightly
 # before the interval has elapsed is not pushed back a whole cycle.
 SLACK_SECONDS = 5 * 60
@@ -132,9 +135,14 @@ class Pipeline:
     def _freshness(self, job: RawJob, now: int) -> str:
         if job.posted_at and now - job.posted_at > self.cfg.max_job_age_days * 24 * HOUR:
             return "too_old"
-        if job.deadline and job.deadline - now < self.cfg.min_hours_before_deadline * HOUR:
+        if job.deadline and not self._deadline_ok(job.deadline, now):
             return "deadline_too_close"
         return ""
+
+    @staticmethod
+    def _deadline_ok(deadline: int, now: int) -> bool:
+        """A deadline must fall tomorrow (IST) or later; today's and past ones are dropped."""
+        return deadline >= ist_day_start(now) + DAY
 
     def _duplicate(self, job: RawJob, now: int) -> bool:
         key = dedupe_key(job)
@@ -171,10 +179,9 @@ class Pipeline:
                 self._close(row, now, "deadline_passed")
             elif row["status"] == STATUS_CANDIDATE:
                 published = int(row["published_at"] or row["first_seen"])
-                left = (int(row["deadline"]) - now) if row["deadline"] else None
                 if now - published > max_age:
                     self._close(row, now, "too_old")
-                elif left is not None and left < self.cfg.min_hours_before_deadline * HOUR:
+                elif row["deadline"] and not self._deadline_ok(int(row["deadline"]), now):
                     self._close(row, now, "deadline_too_close")
 
     def _close(self, row: Dict, now: int, reason: str) -> None:
@@ -188,7 +195,7 @@ class Pipeline:
         self.repo.update(row["id"], status=STATUS_CLOSED, reason=reason, closed_at=now)
         self.closed_posts += 1
 
-    # --- 3. post one job -------------------------------------------------
+    # --- 3. post all new jobs --------------------------------------------
 
     def priority(self, row: Dict, now: int, last_type: Optional[str]) -> float:
         published = int(row["published_at"] or row["first_seen"])
@@ -199,27 +206,44 @@ class Pipeline:
         return score
 
     def publish(self) -> int:
+        """Post every pending candidate now (nothing is held back for a later run).
+
+        Optional limits (all off by default): quiet hours, a minimum gap between posting runs,
+        a daily cap, and a per-company cooldown. Returns the number of posts sent."""
         now = self.clock()
         if is_quiet_hours(now, self.cfg.quiet_start_hour, self.cfg.quiet_end_hour):
             return 0
-        if self.repo.sent_count_since(ist_day_start(now)) >= self.cfg.max_posts_per_day:
-            return 0
+        budget = None  # posts still allowed today; None = unlimited
+        if self.cfg.max_posts_per_day > 0:
+            budget = self.cfg.max_posts_per_day - self.repo.sent_count_since(ist_day_start(now))
+            if budget <= 0:
+                return 0
         last = self.repo.last_sent()
-        if last and now - int(last["sent_at"]) < self.cfg.post_interval_minutes * 60 - SLACK_SECONDS:
+        if (self.cfg.post_interval_minutes > 0 and last
+                and now - int(last["sent_at"]) < self.cfg.post_interval_minutes * 60 - SLACK_SECONDS):
             return 0
         last_type = last["job_type"] if last else None
-        rows = sorted(self.repo.by_status(STATUS_CANDIDATE),
-                      key=lambda r: self.priority(r, now, last_type), reverse=True)
+        pending = list(self.repo.by_status(STATUS_CANDIDATE))
         company_since = now - self.cfg.company_cooldown_hours * HOUR
-        for row in rows:
+        posted = failures = 0
+        while pending and (budget is None or posted < budget):
+            # Best first (newest, company sites, alternating internships and jobs).
+            row = max(pending, key=lambda r: self.priority(r, now, last_type))
+            pending.remove(row)
             if self.repo.was_posted("dedupe_key", row["dedupe_key"],
                                     now - self.cfg.repost_cooldown_days * 24 * HOUR):
                 self.repo.update(row["id"], status=STATUS_SKIPPED, reason="duplicate")
                 continue
-            if self.repo.was_posted("company_key", row["company_key"], company_since):
-                continue  # give other companies a turn; this one waits
-            return self._send(row, now)
-        return 0
+            if (self.cfg.company_cooldown_hours > 0
+                    and self.repo.was_posted("company_key", row["company_key"], company_since)):
+                continue  # company cooldown is enabled and this company posted recently
+            if self._send(row, now):
+                posted, failures, last_type = posted + 1, 0, row["job_type"]
+            else:
+                failures += 1
+                if failures >= MAX_CONSECUTIVE_SEND_ERRORS:
+                    break  # likely a bad token/channel: stop instead of failing for every job
+        return posted
 
     def _send(self, row: Dict, now: int) -> int:
         composed = compose(raw_from_json(row["raw"]), now)
