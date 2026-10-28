@@ -54,6 +54,34 @@ def test_posts_every_new_job_in_one_run(cfg, repo, tg):
     assert len(sent(tg)) == 3
 
 
+def test_at_most_five_posts_per_hour(cfg, repo, tg):
+    clock = Clock()
+    p = pipe(cfg, repo, tg, Source(*[job(i) for i in range(8)]), clock=clock)
+    assert p.run()["posted"] == 5
+    clock.now += 30 * 60
+    assert p.run()["posted"] == 0  # still inside the same hour
+    clock.now += 28 * 60  # 58 min later: inside the cron-drift slack, so the next batch goes out
+    assert p.run()["posted"] == 3
+    assert len(sent(tg)) == 8 and repo.counts() == {STATUS_POSTED: 8}
+
+
+def test_hourly_cap_can_be_changed_or_turned_off(cfg, repo, tg):
+    cfg.max_posts_per_hour = 2
+    assert pipe(cfg, repo, tg, Source(*[job(i) for i in range(6)])).run()["posted"] == 2
+
+
+def test_hourly_cap_off_posts_everything(cfg, repo, tg):
+    cfg.max_posts_per_hour = 0
+    assert pipe(cfg, repo, tg, Source(*[job(i) for i in range(8)])).run()["posted"] == 8
+
+
+def test_posts_carry_apply_and_share_buttons(cfg, repo, tg):
+    pipe(cfg, repo, tg, Source(job(1))).run()
+    row = sent(tg)[0]["reply_markup"]["inline_keyboard"][0]
+    assert [b["text"] for b in row] == ["Apply now", "📤 Share"]
+    assert "t.me/share/url?url=https%3A%2F%2Ft.me%2Fitjobs_test" in row[1]["url"]
+
+
 def test_later_run_posts_only_the_new_jobs(cfg, repo, tg):
     clock = Clock()
     src = Source(job(1), job(2))

@@ -1,8 +1,8 @@
 # jobbot: IT internships & fresher jobs in India, on Telegram
 
 Every hour it collects internships and entry-level IT jobs in India (on-site, hybrid and
-remote), drops anything that isn't IT, entry level, paid, or safe, and posts **every new job**
-to your channel in English (nothing is saved for later). When a job closes, its post is edited to **❌ CLOSED**.
+remote), drops anything that isn't IT, entry level, paid, or safe, and posts new jobs
+to your channel in English, **up to 5 per hour**. Each post has **Apply now** and **Share** buttons. When a job closes, its post is edited to **❌ CLOSED**.
 Fully automatic, no review step, ₹0 to run (GitHub Actions + free Postgres).
 
 Built on the same architecture as [crazy-deals-india](https://github.com/iamyogeshmalkani/crazy-deals-india).
@@ -52,7 +52,9 @@ A job is posted only if **all** of these hold:
 6. **Fresh**: published in the last 10 days, and the deadline (if any) is **tomorrow or later** (IST). Jobs closing today or already closed are dropped; jobs with no deadline are fine.
 7. **Not a repeat**: same company + title isn't posted twice within 30 days (across sources).
 
-Every run posts all jobs that pass, so a delayed or skipped scheduled run never leaves jobs waiting. Within a run the order is newest first, company sites slightly ahead of aggregators, alternating internships and jobs.
+Each run posts the jobs that pass, **at most 5 in any rolling hour** (`MAX_POSTS_PER_HOUR`, 0 = off). Anything over the cap stays pending and goes out on the next run. The order is newest first, company sites slightly ahead of aggregators, alternating internships and jobs.
+
+The **📤 Share** button opens Telegram's share sheet with the channel link plus the job's title and apply link, so readers can forward a job and bring friends to the channel. It needs a public `@handle` channel id; otherwise it shares the job link only.
 
 Optional limits, all **off** by default: `QUIET_START_HOUR`/`QUIET_END_HOUR` (IST), `POST_INTERVAL_MINUTES`, `MAX_POSTS_PER_DAY`, `COMPANY_COOLDOWN_HOURS` (see `.env.example`).
 
@@ -60,7 +62,7 @@ Optional limits, all **off** by default: `QUIET_START_HOUR`/`QUIET_END_HOUR` (IS
 
 Measured live on 2026-10-27:
 
-- **About 50 jobs pass every filter at launch.** The first run posts all of them, about 3 s apart (Telegram's channel rate limit), so roughly 3 minutes.
+- **About 50 jobs pass every filter at launch.** With the 5-per-hour cap, that backlog drains over about 10 hours (as long as runs happen hourly).
 - **About 6-8 new ones appear per day after that**, mostly from Unstop. Each run posts whatever is new and posts nothing when there is nothing new, rather than posting filler. To get more, add sources (see "Next steps").
 
 ## Setup
@@ -84,7 +86,7 @@ GitHub pauses scheduled workflows in repos with no activity for 60 days. If the 
 
 | Command | What it does |
 |---|---|
-| `python -m jobbot run` | One cycle: collect due sources, close ended jobs, post all new jobs |
+| `python -m jobbot run` | One cycle: collect due sources, close ended jobs, post new jobs (max 5/hour) |
 | `python -m jobbot check` | Tests the database, bot token, and the bot's admin rights in the channel |
 | `python -m jobbot preview [--limit N]` | Live fetch into a throwaway DB; prints counts, filter reasons, and the next N posts |
 | `python -m jobbot discover "Company" …` | Finds a company's Greenhouse/Lever/Ashby board and prints a line for `companies.json` |

@@ -106,7 +106,7 @@ def cmd_preview(cfg: Config, args: argparse.Namespace) -> int:
           f"jobs: {sum(r['job_type'] == 'job' for r in rows)}")
     print(f"Filtered out: {dict(pipe.skipped.most_common())}\n")
     for r in rows[:args.limit]:
-        _print_post(compose(raw_from_json(r["raw"]), now).text)
+        _print_post(compose(raw_from_json(r["raw"]), now, cfg.channel_url).text)
     return 0
 
 
@@ -142,7 +142,7 @@ COMMANDS = {"run": cmd_run, "check": cmd_check, "preview": cmd_preview, "discove
 def main(argv: List[str] = None) -> int:
     parser = argparse.ArgumentParser(prog="jobbot", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("run", help="one cycle: collect, close ended jobs, post all new jobs")
+    sub.add_parser("run", help="one cycle: collect, close ended jobs, post new jobs (max 5/hour)")
     sub.add_parser("check", help="verify database, bot token and channel admin rights")
     p = sub.add_parser("preview", help="fetch live and print what would be posted (sends nothing)")
     p.add_argument("--limit", type=int, default=5)

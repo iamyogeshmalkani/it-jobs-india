@@ -7,6 +7,7 @@ import re
 from dataclasses import dataclass
 from html import escape
 from typing import List, Optional
+from urllib.parse import quote
 
 from jobbot import classify
 from jobbot.india import format_deadline, format_inr, lakhs
@@ -14,6 +15,7 @@ from jobbot.models import (MODE_HYBRID, MODE_ONSITE, MODE_REMOTE, PAY_MONTH, PAY
                            TYPE_INTERNSHIP, RawJob)
 
 APPLY_LABEL = "Apply now"
+SHARE_LABEL = "📤 Share"
 FOOTER = "🚫 Never pay anyone to get a job or internship."
 MAX_CITIES = 3
 MAX_SKILLS = 4
@@ -81,7 +83,18 @@ def hashtags(job: RawJob) -> str:
     return " ".join(f"#{t}" for t in dict.fromkeys(tags))
 
 
-def compose(job: RawJob, now: int) -> Composed:
+def share_button(job: RawJob, channel_url: str) -> dict:
+    """Opens Telegram's share sheet. It shares the channel link (so friends can join) with the
+    job's title and apply link as the message; without a public channel link it shares the job."""
+    text = f"{job.title.strip()} at {job.company.strip()}\n{job.url}"
+    if channel_url:
+        text += "\n\nMore free IT internships & fresher jobs in India 👇"
+    target = channel_url or job.url
+    return {"text": SHARE_LABEL,
+            "url": f"https://t.me/share/url?url={quote(target, safe='')}&text={quote(text, safe='')}"}
+
+
+def compose(job: RawJob, now: int, channel_url: str = "") -> Composed:
     is_intern = classify.job_type(job) == TYPE_INTERNSHIP
     header = "🎓 <b>INTERNSHIP</b>" if is_intern else "💼 <b>ENTRY-LEVEL JOB</b>"
     if job.part_time:
@@ -106,5 +119,5 @@ def compose(job: RawJob, now: int) -> Composed:
 
     closed = "\n".join(["❌ <b>CLOSED</b>: no longer accepting applications.", "",
                         f"<s>{title}</s>", f"🏢 {company}", "", hashtags(job)])
-    keyboard = [[{"text": APPLY_LABEL, "url": job.url}]]
+    keyboard = [[{"text": APPLY_LABEL, "url": job.url}, share_button(job, channel_url)]]
     return Composed("\n".join(lines), closed, keyboard)

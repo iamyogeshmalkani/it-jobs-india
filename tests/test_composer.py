@@ -1,3 +1,5 @@
+from urllib.parse import parse_qs, urlparse
+
 from conftest import DAY, HOUR, NOW, make_job
 from jobbot.composer import FOOTER, compose, hashtags, location_line
 from jobbot.india import format_deadline, format_inr, lakhs
@@ -13,7 +15,25 @@ def test_internship_post_has_only_given_fields():
     for absent in ("💰", "⏳", "🛠", "via"):
         assert absent not in post.text
     assert post.text.endswith(FOOTER)
-    assert post.keyboard == [[{"text": "Apply now", "url": "https://jobs.example.com/1"}]]
+    apply, share = post.keyboard[0]
+    assert len(post.keyboard) == 1 and apply == {"text": "Apply now", "url": "https://jobs.example.com/1"}
+    assert share["text"] == "📤 Share"
+
+
+def test_share_button_shares_channel_with_job_details():
+    post = compose(make_job(title="Backend Intern", company="Acme Labs"), NOW, "https://t.me/itjobs_test")
+    url = post.keyboard[0][1]["url"]
+    parts = urlparse(url)
+    assert parts.netloc == "t.me" and parts.path == "/share/url"
+    query = parse_qs(parts.query)
+    assert query["url"] == ["https://t.me/itjobs_test"]
+    assert "Backend Intern at Acme Labs" in query["text"][0]
+    assert "https://jobs.example.com/1" in query["text"][0]
+
+
+def test_share_button_without_public_channel_shares_the_job():
+    url = compose(make_job(), NOW, "").keyboard[0][1]["url"]
+    assert parse_qs(urlparse(url).query)["url"] == ["https://jobs.example.com/1"]
 
 
 def test_unstop_style_post():

@@ -1,4 +1,4 @@
-"""One bot cycle: collect -> store new candidates -> close ended jobs -> post all new jobs.
+"""One bot cycle: collect -> store new candidates -> close ended jobs -> post new jobs (max 5/hour).
 
 Stateless between runs (state lives in the database) so it can be driven by an hourly
 GitHub Actions cron. Fully automatic: there is no review step, so every filter that
@@ -208,16 +208,22 @@ class Pipeline:
     def publish(self) -> int:
         """Post every pending candidate now (nothing is held back for a later run).
 
-        Optional limits (all off by default): quiet hours, a minimum gap between posting runs,
-        a daily cap, and a per-company cooldown. Returns the number of posts sent."""
+        Limits: at most MAX_POSTS_PER_HOUR in any rolling hour (default 5). Optional and off by
+        default: quiet hours, a minimum gap between posting runs, a daily cap, and a per-company
+        cooldown. Jobs over the cap stay pending for the next run. Returns the number sent."""
         now = self.clock()
         if is_quiet_hours(now, self.cfg.quiet_start_hour, self.cfg.quiet_end_hour):
             return 0
-        budget = None  # posts still allowed today; None = unlimited
+        allowed = []  # posts still allowed under each cap; the smallest wins
+        if self.cfg.max_posts_per_hour > 0:
+            # Rolling hour, minus the cron-drift slack so a run a few minutes early isn't blocked.
+            recent = self.repo.sent_count_since(now - HOUR + SLACK_SECONDS)
+            allowed.append(self.cfg.max_posts_per_hour - recent)
         if self.cfg.max_posts_per_day > 0:
-            budget = self.cfg.max_posts_per_day - self.repo.sent_count_since(ist_day_start(now))
-            if budget <= 0:
-                return 0
+            allowed.append(self.cfg.max_posts_per_day - self.repo.sent_count_since(ist_day_start(now)))
+        budget = min(allowed) if allowed else None  # None = unlimited
+        if budget is not None and budget <= 0:
+            return 0
         last = self.repo.last_sent()
         if (self.cfg.post_interval_minutes > 0 and last
                 and now - int(last["sent_at"]) < self.cfg.post_interval_minutes * 60 - SLACK_SECONDS):
@@ -246,7 +252,7 @@ class Pipeline:
         return posted
 
     def _send(self, row: Dict, now: int) -> int:
-        composed = compose(raw_from_json(row["raw"]), now)
+        composed = compose(raw_from_json(row["raw"]), now, self.cfg.channel_url)
         try:
             sent = self.tg.send(self.cfg.channel_id, composed.text, composed.keyboard)
         except TelegramError as exc:

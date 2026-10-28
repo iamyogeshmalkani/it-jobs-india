@@ -39,6 +39,7 @@ jobs:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
           DRY_RUN: ${{ vars.DRY_RUN || '0' }}
           SKIP_UNPAID: ${{ vars.SKIP_UNPAID }}
+          MAX_POSTS_PER_HOUR: ${{ vars.MAX_POSTS_PER_HOUR }}
           MAX_POSTS_PER_DAY: ${{ vars.MAX_POSTS_PER_DAY }}
           POST_INTERVAL_MINUTES: ${{ vars.POST_INTERVAL_MINUTES }}
           QUIET_START_HOUR: ${{ vars.QUIET_START_HOUR }}
