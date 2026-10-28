@@ -32,16 +32,52 @@ def _print_post(text: str) -> None:
     print("┌──\n" + "\n".join("│ " + line for line in plain.splitlines()) + "\n└──")
 
 
-def cmd_run(cfg: Config, _: argparse.Namespace) -> int:
+CHANNEL_KEY = "channel_id"
+
+
+def channel_changed(repo: Repo, cfg: Config) -> bool:
+    """True if the database remembers posting to a different channel than the one configured.
+    Message ids belong to one channel, so editing old posts in a new channel would hit the
+    wrong messages; the run must stop until the switch is done on purpose."""
+    saved = repo.get_kv(CHANNEL_KEY)
+    return bool(saved) and saved != cfg.channel_id.strip().lower()
+
+
+def remember_channel(repo: Repo, cfg: Config) -> None:
+    repo.set_kv(CHANNEL_KEY, cfg.channel_id.strip().lower())
+
+
+def _missing_settings(cfg: Config) -> List[str]:
     missing = [name for name, val in (("TELEGRAM_BOT_TOKEN", cfg.bot_token),
                                       ("TELEGRAM_CHANNEL_ID", cfg.channel_id)) if not val]
     if os.environ.get("GITHUB_ACTIONS") == "true" and not cfg.database_url:
         missing.append("DATABASE_URL")  # the runner's disk is wiped after every run
+    return missing
+
+
+def cmd_run(cfg: Config, _: argparse.Namespace, repost_all: bool = False) -> int:
+    missing = _missing_settings(cfg)
     if missing and not cfg.dry_run:
         print(f"Missing required settings: {', '.join(missing)}", file=sys.stderr)
         return 2
+    repo = _open(cfg)
+    if repost_all:
+        # One-time switch: every open job goes out again, in the new channel, with no caps.
+        cfg.max_posts_per_hour = cfg.max_posts_per_day = cfg.post_interval_minutes = 0
+        cfg.quiet_start_hour = cfg.quiet_end_hour = 0
+        if not cfg.dry_run:
+            print(f"Re-queued {repo.requeue_posted()} open jobs for {cfg.channel_id}")
+            remember_channel(repo, cfg)
+    elif not cfg.dry_run:
+        if channel_changed(repo, cfg):
+            print(f"The channel changed: jobs were posted to {repo.get_kv(CHANNEL_KEY)}, but "
+                  f"TELEGRAM_CHANNEL_ID is now {cfg.channel_id}. Nothing was posted or edited. "
+                  "Run the jobbot workflow once with 'repost_all' ticked to move to the new "
+                  "channel, or set the secret back.", file=sys.stderr)
+            return 3
+        remember_channel(repo, cfg)
     tg = Telegram(cfg.bot_token, dry_run=cfg.dry_run)
-    pipe = Pipeline(cfg, _open(cfg), tg, build_collectors(cfg, http_client(cfg)))
+    pipe = Pipeline(cfg, repo, tg, build_collectors(cfg, http_client(cfg)))
     stats = pipe.run()
     print(json.dumps({**stats, "skipped": dict(pipe.skipped.most_common())}))
     for msg in tg.outbox:
@@ -49,6 +85,14 @@ def cmd_run(cfg: Config, _: argparse.Namespace) -> int:
             _print_post(msg["text"])
     # A failed post is worth a red run in GitHub Actions; a flaky source is not.
     return 1 if any(e.startswith("telegram") for e in pipe.errors) else 0
+
+
+def cmd_repost_all(cfg: Config, args: argparse.Namespace) -> int:
+    if not args.yes:
+        print("This posts every open job again in the configured channel. Re-run with --yes.",
+              file=sys.stderr)
+        return 2
+    return cmd_run(cfg, args, repost_all=True)
 
 
 def cmd_check(cfg: Config, _: argparse.Namespace) -> int:
@@ -137,13 +181,17 @@ def cmd_discover(cfg: Config, args: argparse.Namespace) -> int:
     return 0
 
 
-COMMANDS = {"run": cmd_run, "check": cmd_check, "preview": cmd_preview, "discover": cmd_discover}
+COMMANDS = {"run": cmd_run, "repost-all": cmd_repost_all, "check": cmd_check,
+            "preview": cmd_preview, "discover": cmd_discover}
 
 
 def main(argv: List[str] = None) -> int:
     parser = argparse.ArgumentParser(prog="jobbot", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("run", help="one cycle: collect, close ended jobs, post new jobs (max 5/hour)")
+    r = sub.add_parser("repost-all", help="one time, after changing channel: post every open "
+                                          "job again in the new channel (no caps)")
+    r.add_argument("--yes", action="store_true", help="confirm")
     sub.add_parser("check", help="verify database, bot token and channel admin rights")
     p = sub.add_parser("preview", help="fetch live and print what would be posted (sends nothing)")
     p.add_argument("--limit", type=int, default=5)

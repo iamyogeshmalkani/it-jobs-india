@@ -169,6 +169,20 @@ class Repo:
         self.db.query(f"UPDATE job_listings SET {assignments} WHERE id = %s",
                       (*fields.values(), listing_id))
 
+    def requeue_posted(self) -> int:
+        """Turn every still-open post back into a candidate so it can be posted again (used
+        when the channel changes). Clears what ties it to the old channel: the message id and
+        the sent time, which the duplicate and rate checks read. Closed posts stay closed.
+        Returns how many jobs were re-queued."""
+        n = self.db.query("SELECT COUNT(*) AS n FROM job_listings WHERE status = %s",
+                          (STATUS_POSTED,))[0]["n"]
+        self.db.query(
+            """UPDATE job_listings SET status = %s, reason = '', sent_at = NULL,
+                 tg_message_id = NULL, closed_at = NULL, text = '', closed_text = '',
+                 keyboard = '[]' WHERE status = %s""",
+            (STATUS_CANDIDATE, STATUS_POSTED))
+        return int(n)
+
     def by_status(self, *statuses: str) -> List[Dict[str, Any]]:
         marks = ", ".join(["%s"] * len(statuses))
         return self.db.query(

@@ -85,6 +85,17 @@ Measured live on 2026-10-27:
    ```
 5. **Deploy**: push to a **public** GitHub repo (free Actions minutes), add `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHANNEL_ID`, `DATABASE_URL` as repository **secrets**, and enable Actions. For a first trial, set the repository **variable** `DRY_RUN=1`. The run log shows the post without sending it. Then remove the variable.
 
+## Changing the channel
+
+Message ids belong to one channel, so the bot remembers which channel it posts to. If `TELEGRAM_CHANNEL_ID` changes, scheduled runs **stop without posting or editing anything** until you move over on purpose:
+
+1. Add the bot to the new channel as **admin** (*Post messages* and *Edit messages of others*).
+2. Update the `TELEGRAM_CHANNEL_ID` secret to the new `@handle`.
+3. Go to Actions → **jobbot** → Run workflow, tick **repost_all**, and run it. It re-queues every job that is still open, posts them all to the new channel with no hourly cap (about 3 s apart), and records the new channel.
+4. Done. The hourly schedule carries on from there as normal, posting new jobs to the new channel.
+
+Closed jobs are not reposted, and jobs whose deadline has passed are dropped. The old channel's posts are left as they are, so delete or archive that channel yourself. Do step 2 and 3 back to back.
+
 GitHub pauses scheduled workflows in repos with no activity for 60 days. If the channel goes quiet, re-enable it from the Actions tab.
 
 ## Commands
